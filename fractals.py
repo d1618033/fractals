@@ -5,7 +5,7 @@ creates fractal gifs using the L system
 
 what you need
 =============
-- linux operating system ( I'm using Lubuntu)
+- linux operating system (I'm using Lubuntu)
 - python3
 - matplotlib installed
 
@@ -75,14 +75,16 @@ class Drawer:
         disty=(abs(rangey[1]-rangey[0]))**0.5
         plt.xlim([rangex[0]-distx, rangex[1]+distx])
         plt.ylim([rangey[0]-disty, rangey[1]+disty])
-    def setup_drawing(self):
+    def plot(self):
+        """(Drawer) -> None
+        plots the drawing"""
         self.adjust_limits()
         plt.axis('off')
         plt.plot(self.allx,self.ally,'b-')
     def display(self):
         """(Drawer) -> None
         displays the drawing"""
-        self.setup_drawing()
+        self.plot()
         plt.show()
     def clear(self):
         """(Drawer) -> None
@@ -91,7 +93,6 @@ class Drawer:
     def save(self,file_name):
         """(Drawer, string) -> None
         saves the current figure to a file"""
-        self.setup_drawing()
         plt.savefig(file_name)
 
 class Generator:
@@ -155,12 +156,12 @@ def fractal_gif(start,rules,methods,n,d,name):
         g.run(1)
         s=g.get_final()
         parse(s, methods)
+        d.plot()
         for j in range(5 if i==n-1 else 1):
             file_name=name+str(i+j)+".png"
             all_files+=" "+file_name
             d.save(file_name)
         d.reset()
-    
     os.system('convert -delay 100 -loop 0 '+all_files+' '+ name+'.gif')
     os.system('rm '+all_files)
 
