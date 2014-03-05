@@ -78,7 +78,7 @@ class Drawer:
     def setup_drawing(self):
         self.adjust_limits()
         plt.axis('off')
-        plt.plot(self.allx,self.ally)
+        plt.plot(self.allx,self.ally,'b-')
     def display(self):
         """(Drawer) -> None
         displays the drawing"""
@@ -155,10 +155,12 @@ def fractal_gif(start,rules,methods,n,d,name):
         g.run(1)
         s=g.get_final()
         parse(s, methods)
-        file_name=name+str(i)+".png"
-        all_files+=" "+file_name
-        d.save(file_name)
+        for j in range(5 if i==n-1 else 1):
+            file_name=name+str(i+j)+".png"
+            all_files+=" "+file_name
+            d.save(file_name)
         d.reset()
+    
     os.system('convert -delay 100 -loop 0 '+all_files+' '+ name+'.gif')
     os.system('rm '+all_files)
 
