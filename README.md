@@ -1,6 +1,7 @@
 general
 ========
 creates fractal gifs using the L system
+
 see examples in Examples folder
 
 what you need
