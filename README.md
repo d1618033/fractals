@@ -5,19 +5,19 @@ creates fractal gifs using the L system
 see examples in Examples folder
 
 what you need
-=============
-- linux operating system ( I'm using Lubuntu)
+-------------
+- linux operating system (The code uses some command line utilities)
 - python3
 - matplotlib installed
 
 currently supported fractals:
-============================
+-----------------------------
 - dragon curve
 - sierpinski triangle
 - c curve
 
 usage
-=====
+-----
 
     $ python3 fractals.py <name>
 
@@ -27,6 +27,6 @@ this command will create a few temporary png images in your current directory
 and then create a gif from them
 
 example
-=======
+--------
 
     $ python3 fractals.py dragon_curve
