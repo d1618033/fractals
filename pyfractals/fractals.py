@@ -138,7 +138,15 @@ def fractal_gif(fractal: Fractal, num_iterations: int, turtle: Turtle) -> None:
             drawer.clear()
             turtle.clear()
         subprocess.check_call(
-            ["convert", "-delay100", "-loop0 ", *all_files, f"{fractal.name}.gif"]
+            [
+                "convert",
+                "-delay",
+                "100",
+                "-loop",
+                "0",
+                *all_files,
+                f"{fractal.name}.gif",
+            ]
         )
 
 
@@ -187,10 +195,14 @@ def dragon_curve() -> None:
     fractal_gif(fractal, num_iterations, drawer)
 
 
+def main(args: List[str]) -> None:
+    fractals = {
+        "dragon_curve": dragon_curve,
+        "sierpinski": sierpinski,
+        "ccurve": ccurve,
+    }
+    fractals[args[0]]()
+
+
 if __name__ == "__main__":
-    if sys.argv[1] == "dragon_curve":
-        dragon_curve()
-    elif sys.argv[1] == "sierpinski":
-        sierpinski()
-    elif sys.argv[1] == "ccurve":
-        ccurve()
+    main(sys.argv[1:])
