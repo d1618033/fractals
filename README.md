@@ -7,7 +7,7 @@ see examples in the `examples/` folder
 Installation
 -------------
 
-`pip install fractals`
+`pip install pyfractals`
 
 
 currently supported fractals:
@@ -19,11 +19,11 @@ currently supported fractals:
 usage
 -----
 
-    $ python3 fractals.py <name>
+    $ python3 pyfractals/fractals.py <name>
 
 name is either dragon_curve or sierpinski or ccurve
 
-this command will create a few temporary png images in your current directory
+this command will create a few temporary png images
 and then create a gif from them
 
 example
