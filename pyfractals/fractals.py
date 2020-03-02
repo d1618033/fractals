@@ -32,7 +32,7 @@ class Turtle:
 
     def __init__(self) -> None:
         self.current = self._DEFAULT_STARTING_POINT
-        self.all_points: List[Point] = []
+        self.all_points: List[Point] = [self.current]
         self.direction = self._DEFAULT_STARTING_DIRECTION
 
     def draw(self, steps: int) -> None:
@@ -63,7 +63,7 @@ class Turtle:
 
     def clear(self) -> None:
         self.current = self._DEFAULT_STARTING_POINT
-        self.all_points = []
+        self.all_points = [self.current]
         self.direction = self._DEFAULT_STARTING_DIRECTION
 
 
