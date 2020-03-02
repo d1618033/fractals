@@ -1,14 +1,14 @@
-general
+Fractals
 ========
 creates fractal gifs using the L system
 
-see examples in Examples folder
+see examples in the `examples/` folder
 
-what you need
+Installation
 -------------
-- linux operating system (The code uses some command line utilities)
-- python3
-- matplotlib installed
+
+`pip install fractals`
+
 
 currently supported fractals:
 -----------------------------
