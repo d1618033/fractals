@@ -6,7 +6,7 @@ import subprocess
 import sys
 import tempfile
 from dataclasses import dataclass
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Optional, Any
 
 import matplotlib.pyplot as plt
 
@@ -120,7 +120,12 @@ def parse(string: str, fractal: Fractal) -> None:
         fractal.methods[character]()
 
 
-def fractal_gif(fractal: Fractal, num_iterations: int, turtle: Turtle) -> None:
+def fractal_gif(
+    fractal: Fractal,
+    num_iterations: int,
+    turtle: Turtle,
+    output_file: Optional[str] = None,
+) -> None:
     """creates a fractal picture for every stage"""
     generator = Generator(fractal.start, fractal.rules)
     all_files = []
@@ -137,20 +142,14 @@ def fractal_gif(fractal: Fractal, num_iterations: int, turtle: Turtle) -> None:
                 drawer.save(file_name)
             drawer.clear()
             turtle.clear()
+        if output_file is None:
+            output_file = f"{fractal.name}.gif"
         subprocess.check_call(
-            [
-                "convert",
-                "-delay",
-                "100",
-                "-loop",
-                "0",
-                *all_files,
-                f"{fractal.name}.gif",
-            ]
+            ["convert", "-delay", "100", "-loop", "0", *all_files, output_file]
         )
 
 
-def ccurve() -> None:
+def ccurve(**kwargs: Any) -> None:
     start = "F"
     rules = {"F": "+F--F+"}
     num_iterations = 12
@@ -161,10 +160,10 @@ def ccurve() -> None:
         "-": lambda: drawer.turn(315),
     }
     fractal = Fractal(start=start, rules=rules, methods=methods, name="ccurve")
-    fractal_gif(fractal, num_iterations, drawer)
+    fractal_gif(fractal, num_iterations, drawer, **kwargs)
 
 
-def sierpinski() -> None:
+def sierpinski(**kwargs: Any) -> None:
     start = "A"
     rules = {"A": "B-A-B", "B": "A+B+A"}
     num_iterations = 9
@@ -176,10 +175,10 @@ def sierpinski() -> None:
         "-": lambda: drawer.turn(300),
     }
     fractal = Fractal(start=start, rules=rules, methods=methods, name="sierpinski")
-    fractal_gif(fractal, num_iterations, drawer)
+    fractal_gif(fractal, num_iterations, drawer, **kwargs)
 
 
-def dragon_curve() -> None:
+def dragon_curve(**kwargs: Any) -> None:
     start = "FX"
     rules = {"X": "X+YF+", "Y": "-FX-Y"}
     num_iterations = 15
@@ -192,16 +191,18 @@ def dragon_curve() -> None:
         "Y": lambda: None,
     }
     fractal = Fractal(start=start, rules=rules, methods=methods, name="dragon_curve")
-    fractal_gif(fractal, num_iterations, drawer)
+    fractal_gif(fractal, num_iterations, drawer, **kwargs)
+
+
+FRACTALS = {
+    "dragon_curve": dragon_curve,
+    "sierpinski": sierpinski,
+    "ccurve": ccurve,
+}
 
 
 def main(args: List[str]) -> None:
-    fractals = {
-        "dragon_curve": dragon_curve,
-        "sierpinski": sierpinski,
-        "ccurve": ccurve,
-    }
-    fractals[args[0]]()
+    FRACTALS[args[0]]()
 
 
 if __name__ == "__main__":

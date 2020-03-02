@@ -12,9 +12,12 @@ Installation
 
 currently supported fractals:
 -----------------------------
-- dragon curve
-- sierpinski triangle
-- c curve
+- Dragon Curve
+![Dragon Curve](regression/expected/dragon_curve.gif)
+- Sierpinski Triangle
+![Sierpinski](regression/expected/sierpinski.gif)
+- C Curve
+![C Curve](regression/expected/ccurve.gif)
 
 usage
 -----

@@ -2,7 +2,8 @@
 .PHONY: init test test-cov lint format
 
 CODE = pyfractals
-TEST = poetry run pytest --verbosity=2 --showlocals --strict --cov=$(CODE)
+TEST = poetry run pytest tests --verbosity=2 --showlocals --strict --cov=$(CODE)
+TEST_FULL = poetry run pytest tests regression --verbosity=2 --showlocals --strict --cov=$(CODE)
 
 init:
 	poetry install
@@ -13,7 +14,7 @@ test:
 	$(TEST) -k "$(k)"
 
 test-cov:
-	$(TEST) --cov-report=html
+	$(TEST_FULL) --cov-report=html
 
 lint:
 	poetry run flake8 --jobs 4 --statistics --show-source $(CODE) tests
